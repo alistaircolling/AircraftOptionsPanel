@@ -10,6 +10,7 @@
 			import mx.core.IVisualElement;
 			import mx.events.FlexEvent;
 			import mx.graphics.SolidColor;
+			import mx.graphics.SolidColorStroke;
 			
 			import spark.primitives.Rect;
 			
@@ -38,17 +39,19 @@
 					
 					var rect:Rect = new Rect();
 					rect.fill = new SolidColor(0xcccccc);
+					rect.stroke = new SolidColorStroke(0x0);
+					
 					rect.width = rectWidth;
 					rect.height = display.height- (padding*2);
-					display.addElement(rect);
+					display.rectHolder.addElement(rect);
 					rect.x = padding+(i*rectWidth);
 					rect.y = padding;					
 				}
 			}
 			
 			private function colorRects(num:uint):void{
-				for(var i:uint = 0; i<totalRects; i++){
-					var rect:IV = display.getChildAt(i) as IVisualElement;
+				for(var i:uint = 1; i<=totalRects; i++){
+					var rect:* = display.rectHolder.getElementAt(i);
 					if (i<=num){
 						rect.fill = new SolidColor(0x0000ff);
 					}else{
@@ -79,7 +82,7 @@
 	</fx:Script>
 	<s:HGroup verticalAlign="middle" verticalCenter="0">
 		<s:Label text="{labelText}"/>
-		<s:Button id="downButton" skinClass="MinuesButtonSkin" label="-" click="downButton_clickHandler(event)"/>
+		<s:Button id="downButton" skinClass="MinusButtonSkin" label="-" click="downButton_clickHandler(event)"/>
 		<local:VolumeDisplay id="display" width="300" height="100"/>
 		<s:Button id="upButton" skinClass="PlusButtonSkin" label="+" click="upButton_clickHandler(event)"/>
 	</s:HGroup>
